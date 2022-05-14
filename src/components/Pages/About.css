@@ -105,10 +105,71 @@
   margin:.5rem 0;
 }
 
+.Offer-Text{
+  display:flex; 
+  flex-direction:column; 
+  justify-content:center;
+  width:45% ;
+}
+
+.Offer-Text h2{
+  color: white;
+  font-size:2rem;
+}
+
+.Offer-Text p{
+  font-size: .9rem;
+  color: #f8f8f8;
+  font-weight:500;
+}
+
+.List{
+  border-left:5px solid #f8f8f8;
+  padding: 1.5rem;
+  width:45%;
+}
+
+.List p{
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  font-size:1rem;
+  font-weight:700;
+  border-bottom: 3px solid #272424;
+  color:white;
+  transition : border-bottom  .5s ease-in-out;
+}
+
+List ul{
+  color: #f8f8f8;
+  list-style-type: disc !important;
+}
+
+List li::marker {
+  color: #f8f8f8 !important; 
+  font-weight: bold !important; 
+  display: inline-block !important;
+  width: 1em !important; 
+  margin-left: -1em !important; 
+}
+
+List li{
+  padding: .5rem;
+  font-size: 1rem;
+  color:#f8f8f8;
+}
 
 @media screen and (max-width:768px) {
   .blue{
     flex-direction: column;
+  }
+
+  .Offer-Text{
+    width:auto
+  }
+
+  .List{
+    border: none;
+    width:auto;
   }
 
   .Text:nth-child(1){
