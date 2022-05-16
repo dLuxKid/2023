@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGit, FaTwitter, FaInstagram} from "react-icons/fa";
+import { FaGit, FaTwitter, FaInstagram } from "react-icons/fa";
 import "./About.css";
 import Logo from "./olawale.jpg";
 
@@ -9,6 +9,7 @@ const About = () => {
       <OurProject />
       <OurAim />
       <Image />
+      <Subscribe />
       <ListOfServices />
     </>
   );
@@ -20,21 +21,21 @@ const DevelopersProfile = [
     img: Logo,
     title: "Adetunji Marvellous",
     author: "Front-End Web Developer",
-    socials: "FaInstagram FaGit FaTwitter"
+    socials: "FaInstagram FaGit FaTwitter",
   },
   {
     id: 2,
     img: Logo,
     title: "Olatunji Mubarak",
     author: "Front-End Web Developer",
-    socials: "FaInstagram FaGit FaTwitter"
+    socials: "FaInstagram FaGit FaTwitter",
   },
   {
     id: 3,
     img: Logo,
     title: "Olajide OluwaTosin",
     author: "DS & ML Engineer",
-    socials: "FaInstagram FaGit FaTwitter" 
+    socials: "FaInstagram FaGit FaTwitter",
   },
 ];
 
@@ -45,10 +46,12 @@ const MeetTeam = (props) => {
       <img src={img} alt="images" />
       <h2>{title}</h2>
       <h3>{author}</h3>
-      <div style={{display:"flex", padding:".3rem", justifyContent:"center" }}>
-        <FaTwitter style={{color:"#0cb8b6", margin:".3rem"}} />
-        <FaGit style={{color:"#0cb8b6", margin:".3rem"}}/>
-        <FaInstagram style={{color:"#0cb8b6", margin:".3rem"}} />
+      <div
+        style={{ display: "flex", padding: ".3rem", justifyContent: "center" }}
+      >
+        <FaTwitter style={{ color: "#0cb8b6", margin: ".3rem" }} />
+        <FaGit style={{ color: "#0cb8b6", margin: ".3rem" }} />
+        <FaInstagram style={{ color: "#0cb8b6", margin: ".3rem" }} />
       </div>
     </div>
   );
@@ -132,11 +135,32 @@ const Image = () => {
   );
 };
 
+const Subscribe = () => {
+  return (
+    <div className="white">
+      <div className="Subscibe">
+        <div className="Signup">
+          <h1>Sign up Now!</h1>
+          <p>
+            Join our newsletter and discover new destinations to inspire the
+            traveler within. Plus, get 20% off at our online shop. Every week
+            you'll receive expert advice, tips, exclusive offers, and much more.
+          </p>
+        </div>
+        <div>
+          <input type="search" placeholder="E-mail" />
+          <button type="button">Register</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ListOfServices = () => {
   return (
     <div className="blue">
       <div className="Offer-Text">
-        <h2 style={{marginBottom:'2rem'}}>What do we have to offer ?</h2>
+        <h2 style={{ marginBottom: "2rem" }}>What do we have to offer ?</h2>
         <p>
           Occaecati cupiditate non provident, similique sunt in culpa qui
           officia deserunt mollitia animi, id est laborum et dolorum fuga. Lorem

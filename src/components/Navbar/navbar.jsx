@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./navbar.css";
-import { Nav, NavLink, Bars, NavBtnLink, NavBtn } from "./NavbarElements";
+import { NavLink, Nav, Bars} from "react-router-dom";
 
 function Navbar() {
   const [click, setClick] = useState("false");
@@ -8,61 +8,33 @@ function Navbar() {
   const handleClick = () => setClick(!click);
   return (
     <>
-      <Nav>
-        <div className="nav.container">
-          <Bars onClick={handleClick} />
+      <Nav className="navbar">
+        <div className="nav-container">
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <NavLink
                 exact
-                to="/"
+                to="/Login"
                 activeClassName="active"
-                className="nav-links"
                 onClick={handleClick}
               >
-                HOME
+                Login
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 exact
-                to="/about"
+                to="/Signup"
                 activeClassName="active"
-                className="nav-links"
                 onClick={handleClick}
               >
-                ABOUT
+                Sign Up
               </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/services"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                SERVICES
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/support-us"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                SUPPORT US
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/SignIn">Log-in</NavLink>
-            </li>
-            <li>
-            <NavBtnLink to="/CreateAccount">Sign-Up</NavBtnLink>
             </li>
           </ul>
+          <div className="nav-icon" onClick={handleClick}>
+            <Bars className={click ? "fas fa-times fa-fade" : "fas fa-bars"}/>
+          </div>
         </div>
       </Nav>
     </>
