@@ -1,41 +1,38 @@
 import React, { useState } from "react";
 import "./navbar.css";
-import { NavLink, Nav, Bars} from "react-router-dom";
+import {
+  NavLink,
+  Nav,
+  Bars,
+  NavBtnLink,
+  NavMenu,
+  NavBtn,
+} from "./NavbarElements";
 
 function Navbar() {
-  const [click, setClick] = useState("false");
+  const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
   return (
     <>
-      <Nav className="navbar">
-        <div className="nav-container">
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/Login"
-                activeClassName="active"
-                onClick={handleClick}
-              >
-                Login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/Signup"
-                activeClassName="active"
-                onClick={handleClick}
-              >
-                Sign Up
-              </NavLink>
-            </li>
-          </ul>
-          <div className="nav-icon" onClick={handleClick}>
-            <Bars className={click ? "fas fa-times fa-fade" : "fas fa-bars"}/>
-          </div>
-        </div>
+      <Nav>
+        <NavLink exact to="/" className="Logo">
+          SKIN DIAGNOSIS
+        </NavLink>
+        <NavMenu className={click ? "nav-menu active" : "nav-menu"}>
+          <NavLink
+            exact
+            to="/Login"
+            activeClassName="active"
+            onClick={handleClick}
+          >
+            Log in
+          </NavLink>
+          <NavBtn>
+            <NavBtnLink to="/signin" onClick={handleClick}>Sign Up</NavBtnLink>
+          </NavBtn>
+        </NavMenu>
+        <Bars onClick={handleClick} />
       </Nav>
     </>
   );
