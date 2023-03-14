@@ -43,7 +43,7 @@ const Home = () => {
         </div>
       </nav>
       <section className="p-[5%] md:p-[7.5%] bg-fill h-[80vh] w-full bg-hero-pattern bg-center lg:bg-right bg-cover bg-no-repeat flex justify-start items-center">
-        <div className="flex flex-col gap-4 sm:gap-6 md:gap-10 w-[75%] md:w-[50%] xl:w-full">
+        <div className="flex flex-col gap-4 sm:gap-6 md:gap-10 w-[80%] md:w-[50%] xl:w-full">
           <TitleComponent>
             Lorem ipsum dolor sit amet consectetur.
           </TitleComponent>

@@ -8,10 +8,11 @@ import "./styles.css";
 const Dashboard = () => {
   document.title = "Dashboard";
 
-  const [images, setImages] = useState(null);
+  const [images, setImages] = useState();
   const [imageUrl, setImageUrl] = useState(null);
   const uploadImg = (e) => {
     setImages(...e.target.files);
+    console.log(images);
   };
 
   useEffect(() => {

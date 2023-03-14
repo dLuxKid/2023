@@ -9,7 +9,7 @@ const About = () => {
   document.title = 'About Us'
   return (
     <div className="h-full">
-      <section className="h-full p-[5%] max-w-3xl">
+      <section className="h-full p-[5%] max-w-4xl">
         <div className="mb-4">
           <TitleComponent>Meet The Team</TitleComponent>
         </div>
@@ -25,13 +25,13 @@ const About = () => {
           {DevelopersProfile.map((item) => (
             <div
               key={item.id}
-              className="bg-[#f4f4f4] p-3 md:p-5 flex flex-col md:flex-row gap-4 justify-center items-center  drop-shadow-2xl shadow-gray-400 max-w-3xl"
+              className="bg-[#f4f4f4] p-3 md:p-5 flex flex-col md:flex-row gap-4 justify-center items-center drop-shadow-2xl shadow-gray-400 max-w-3xl"
             >
-              <div className="overflow-hidden hover:scale-105 duration-200 transition-all w-2/6 ">
+              <div className=" flex overflow-hidden hover:scale-105 duration-200 transition-all w-20 h-20 rounded-full ">
                 <img
                   src={item.img}
                   alt={item.name}
-                  className="w-full h-full rounded-full"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="flex flex-col gap-2 items-center md:items-start justify-center">

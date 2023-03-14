@@ -27,7 +27,7 @@ const Sidebar = () => {
     };
   }, [screenSize]);
 
-  if (!activeMenu && screenSize > 768) {
+  if (!activeMenu && screenSize > 976) {
     setActiveMenu(true);
   }
 
@@ -46,10 +46,10 @@ const Sidebar = () => {
   return (
     <div
       className={`${activeMenu ? "w-72" : "w-8"} ${
-        activeMenu && screenSize <= 768 ? "fixed" : "relative"
+        activeMenu && screenSize <= 976 ? "fixed" : "relative"
       } bg-gradient-to-br from-brown to-light shadow-lg duration-300 z-10`}
     >
-      {screenSize <= 768 ? (
+      {screenSize <= 976 ? (
         <div
           className={` h-8 w-8 bg-white text-brown rounded-full flex justify-center items-center absolute cursor-pointer border-2 border-brown top-9 -right-3 duration-250 ${
             activeMenu ? "rotate-180" : ""
