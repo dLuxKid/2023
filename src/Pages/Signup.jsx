@@ -2,13 +2,15 @@
 import React, { useReducer, useState } from "react";
 import { NavLink } from "react-router-dom";
 // IMAGE
-import logo from "../../assets/Images/logo.png";
+import logo from "../assets/Images/logo.png";
 // COMPONENT
-import LogoContainer from "../../components/LogoContainer";
-import TextComponent from "../../components/TextComponent";
-import TitleComponent from "../../components/TitleComponent";
+import LogoContainer from "../components/LogoContainer";
+import TextComponent from "../components/TextComponent";
+import TitleComponent from "../components/TitleComponent";
 // CONTEXT
-import { useStateContext } from "../../contexts/contextProvider";
+import { useStateContext } from "../contexts/contextProvider";
+// STYLES
+import './styles.css'
 
 // USER REDUCER STATE
 const initialState = {
@@ -68,8 +70,8 @@ const Signup = () => {
 
   return (
     <section className="h-screen w-full relative flex justify-center">
-      <div className="bg-signin-up bg-cover bg-center bg-no-repeat absolute top-0 left-0 right-0 bottom-0 -z-10 blur-sm "></div>
-      <div className="bg-fillT w-[80%] md:w-9/12 m-auto max-w-3xl rounded-2xl border-2 border-natural">
+      <div className="absolute top-0 left-0 right-0 bottom-0 -z-10 blur-sm auth"></div>
+      <div className="bg-fillT w-[80%] md:w-3/5 m-auto max-w-3xl rounded-2xl border-2 border-natural">
         <div className="flex flex-col justify-center items-center gap-4 p-[2.5%] ">
           <LogoContainer logo={logo} />
           <div className="text-center">

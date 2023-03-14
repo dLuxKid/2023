@@ -10,7 +10,7 @@ const Layout = () => {
   return (
     <div className="flex relative">
       {isLoggedIn ? <Sidebar /> : null}
-      <div className="h-full w-full bg-fill">
+      <div className="w-full bg-fill">
         <Routers />
       </div>
     </div>

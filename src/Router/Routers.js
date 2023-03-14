@@ -1,9 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import About from "../Pages/About";
+import Profile from "../Pages/Profile";
 import Dashboard from "../Pages/Dashboard";
-import Home from "../Pages/Homepage/Home";
-import Login from "../Pages/Login/Login";
-import Signup from "../Pages/SignUp/Signup";
+import Home from "../Pages/Home";
+import Login from "../Pages/Login";
+import Signup from "../Pages/Signup";
 import PrivateRouter, { PublicRouter } from "../utils/ProtectetdRouter.js";
 
 const Routers = () => {
@@ -17,6 +19,8 @@ const Routers = () => {
 
       <Route element={<PrivateRouter />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );

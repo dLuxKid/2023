@@ -2,12 +2,12 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 // IMAGES
-import logo from "../../assets/Images/logo.png";
+import logo from "../assets/Images/logo.png";
 // COMPONENTS
-import LogoContainer from "../../components/LogoContainer";
-import TitleComponent from "../../components/TitleComponent";
-import TextComponent from "../../components/TextComponent";
-import BtnComponent from '../../components/BtnComponent'
+import LogoContainer from "../components/LogoContainer";
+import TitleComponent from "../components/TitleComponent";
+import TextComponent from "../components/TextComponent";
+import BtnComponent from '../components/BtnComponent'
 
 const Home = () => {
 
