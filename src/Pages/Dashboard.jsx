@@ -8,8 +8,8 @@ import "./styles.css";
 const Dashboard = () => {
   document.title = "Dashboard";
 
-  const [images, setImages] = useState();
-  const [imageUrl, setImageUrl] = useState();
+  const [images, setImages] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const uploadImg = (e) => {
     setImages(...e.target.files);
   };
@@ -93,7 +93,13 @@ const Dashboard = () => {
                 </tbody>
               </table>
             </div>
-            <div className="self-end">
+            <div
+              className="self-end"
+              onClick={() => {
+                setImageUrl(null);
+                setImages(null);
+              }}
+            >
               <BtnComponent>Take another test</BtnComponent>
             </div>
           </div>
