@@ -1,5 +1,5 @@
 // REACT
-import React, { useReducer } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 // IMAGES
 import logo from "../assets/Images/logo.png";

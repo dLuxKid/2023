@@ -2,8 +2,11 @@ import React from "react";
 import DevelopersProfile from "../data/developersProfile";
 import TitleComponent from "../components/TitleComponent";
 import TextComponent from "../components/TextComponent";
+import HeadingComponent from '../components/HeadingComponent'
+
 
 const About = () => {
+  document.title = 'About Us'
   return (
     <div className="h-full">
       <section className="h-full p-[5%] max-w-3xl">
@@ -32,7 +35,7 @@ const About = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 items-center md:items-start justify-center">
-                <TitleComponent>{item.name}</TitleComponent>
+                <HeadingComponent>{item.name}</HeadingComponent>
                 <TextComponent>{item.background}</TextComponent>
               </div>
             </div>

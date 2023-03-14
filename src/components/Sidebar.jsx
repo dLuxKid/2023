@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../assets/Images/logo.png";
-import profilePic from "../../assets/Images/olawale.jpg";
-import LogoContainer from "../LogoContainer";
+import logo from "../assets/Images/logo.png";
+import profilePic from "../assets/Images/olawale.jpg";
+import LogoContainer from "./LogoContainer";
 import { GoDashboard } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
 import { RiBookLine } from "react-icons/ri";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { AiFillCaretRight } from "react-icons/ai";
-import { useStateContext } from "../../contexts/contextProvider";
+import { useStateContext } from "../contexts/contextProvider";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
@@ -19,7 +19,6 @@ const Sidebar = () => {
   useEffect(() => {
     const handleSize = () => {
       setScreenSize(window.innerWidth);
-      console.log(screenSize);
     };
     handleSize();
     window.addEventListener("resize", handleSize);
@@ -39,7 +38,7 @@ const Sidebar = () => {
     },
     { name: "profile", icon: <CgProfile /> },
     {
-      name: "About",
+      name: "about",
       icon: <RiBookLine />,
     },
   ];
@@ -74,6 +73,7 @@ const Sidebar = () => {
           <div className="w-full flex flex-col gap-2">
             {links.map((item, index) => (
               <NavLink
+                onClick={()=> setActiveMenu(!activeMenu)}
                 key={index}
                 to={`/${item.name}`}
                 className={({ isActive }) =>

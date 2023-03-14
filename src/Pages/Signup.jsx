@@ -1,5 +1,5 @@
 // REACT
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
 // IMAGE
 import logo from "../assets/Images/logo.png";
