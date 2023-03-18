@@ -12,8 +12,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "hero-pattern": "url('/src/assets/Images/heropng.png')",
-        "signin-up": 'url("/src/assets/Images/signinsignupBg.jpg")',
-        "authBg": "url('/src/assets/Images/signinsignupBg.jpg')"
+        "authBg": "url('/src/assets/Images/authBG.jpg')"
       },
       colors: {
         brown: "#A1745D",

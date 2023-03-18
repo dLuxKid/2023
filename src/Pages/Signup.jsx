@@ -70,8 +70,8 @@ const Signup = () => {
 
   return (
     <section className="h-screen w-full relative flex justify-center">
-      <div className="absolute top-0 left-0 right-0 bottom-0 -z-10 blur-sm auth"></div>
-      <div className="bg-fillT w-[80%] md:w-3/5 m-auto max-w-3xl rounded-2xl border-2 border-natural">
+      <div className="absolute top-0 left-0 right-0 bottom-0 -z-10 blur-sm bg-authBg bg-no-repeat bg-center bg-cover"></div>
+      <div className="bg-fillT w-[80%] md:w-3/5 m-auto max-w-xl rounded-2xl border-2 border-natural">
         <div className="flex flex-col justify-center items-center gap-4 p-[2.5%] ">
           <LogoContainer logo={logo} />
           <div className="text-center">

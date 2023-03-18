@@ -1,8 +1,11 @@
+//REACT
 import React from "react";
+// COMPONENT
 import Sidebar from "../components/Sidebar";
+import Routers from "../Router/Routers";
+// CONTEXT
 import { useStateContext } from "../contexts/contextProvider";
 
-import Routers from "../Router/Routers";
 
 const Layout = () => {
   const { isLoggedIn } = useStateContext();
@@ -10,7 +13,7 @@ const Layout = () => {
   return (
     <div className="flex relative">
       {isLoggedIn ? <Sidebar /> : null}
-      <div className="w-full bg-[#f5f5f5]">
+      <div className="w-full">
         <Routers />
       </div>
     </div>

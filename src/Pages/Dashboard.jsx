@@ -1,9 +1,11 @@
+// REACT
 import React, { useState, useEffect } from "react";
+// COMPONENT
 import BtnComponent from "../components/BtnComponent";
 import TextComponent from "../components/TextComponent";
 import HeadingComponent from "../components/HeadingComponent";
+// CONTEXT
 import { useStateContext } from "../contexts/contextProvider";
-import "./styles.css";
 
 const Dashboard = () => {
   document.title = "Dashboard";
@@ -22,7 +24,7 @@ const Dashboard = () => {
 
   const { userData } = useStateContext();
   return (
-    <div className="h-full">
+    <div className="h-full bg-[#f5f5f5] ">
       <section className="flex flex-col md:flex-row h-full m-auto max-w-5xl">
         <div className="p-[10%] md:p-[5%] md:w-2/5 md:h-full">
           <div className="flex flex-col gap-8">
