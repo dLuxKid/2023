@@ -15,7 +15,7 @@ const Home = () => {
     // FUNCTION FOR SETTING NAVBAR DISPLAY
     const nav = document.querySelector("nav");
     const setDisplay = () => {
-      if (window.scrollY > nav.offsetTop) { 
+      if (window.scrollY > nav.offsetTop) {
         nav.classList.add("fixed");
       } else {
         nav.classList.remove("fixed");
@@ -43,19 +43,16 @@ const Home = () => {
         </div>
       </nav>
       <section className="p-[5%] md:p-[7.5%] bg-fill h-[80vh] w-full bg-hero-pattern bg-center lg:bg-right bg-cover bg-no-repeat flex justify-start items-center">
-        <div className="flex flex-col gap-4 sm:gap-6 md:gap-10 w-[80%] md:w-[50%] xl:w-full">
+        <div className="flex flex-col gap-4 sm:gap-6 md:gap-10 w-[90%] md:w-[65%]">
           <TitleComponent>
-            Lorem ipsum dolor sit amet consectetur.
+            Your go-to solution for all your skin-related concerns
           </TitleComponent>
           <TextComponent>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
-            voluptatum ea sunt consequatur eveniet quibusdam nulla voluptas fuga
-            maiores ab laudantium itaque aperiam, nihil numquam doloribus,
-            temporibus cupiditate cumque alias!
+            We are here to provide you with accurate and timely diagnoses through our easy-to-use online platform. Giving you the skin care you need from the comfort of your own home. Sign up today and experience the future of dermatology.
           </TextComponent>
           <div>
             <NavLink to="/signup">
-            <BtnComponent>
+              <BtnComponent>
                 Try Now
               </BtnComponent>
             </NavLink>
@@ -69,33 +66,13 @@ const Home = () => {
               ABOUT
             </TitleComponent>
             <TextComponent>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Voluptatem quam ipsam, rem distinctio recusandae voluptate iusto
-              cum debitis quas non quo doloribus saepe quod et magni velit.
-              Quidem, rerum maiores. Dolorem necessitatibus aliquam temporibus
-              dolor suscipit repellat, assumenda laudantium quidem quaerat quia
-              sunt aliquid dolores beatae enim omnis eaque, nisi fuga. Impedit
-              corrupti quaerat quod itaque adipisci vero optio id? Minus
-              mollitia culpa dolores, quis accusantium veritatis dicta magni
-              minima, officia corporis quam expedita nesciunt molestiae, quidem
-              nulla sequi neque earum ad qui beatae dolorum cupiditate animi
-              laudantium. Voluptatibus, eaque! Vel deleniti deserunt eos
-              nesciunt dolor quisquam voluptate perferendis voluptatum!
+              At DermCheck, we believe that everyone should have access to high-quality dermatological care, regardless of their location or schedule. That's why we've developed a state-of-the-art platform that connects patients to dermatological care online. Our goal is to make dermatological care accessible, affordable, and convenient for everyone.
+              Our website helps to diagnose a wide range of skin conditions, from acne and psoriasis to skin cancer and more. With DermCheck, you can skip the long wait times and high costs associated with traditional dermatology clinics and get the care you need when you need it.
             </TextComponent>
             <TextComponent>
-              Reprehenderit quis mollitia, numquam vero eveniet voluptatum porro
-              cum dolorem eaque sed corporis obcaecati nulla quae quaerat
-              reiciendis quia voluptatem. Ipsa quia pariatur soluta fuga sunt
-              quos assumenda laboriosam itaque. Itaque commodi repellat nam
-              obcaecati aspernatur ratione tempore qui illo? Reprehenderit
-              voluptas rerum iste ut omnis debitis laboriosam officiis
-              laudantium. Rerum explicabo veritatis alias cum distinctio aut
-              illum enim adipisci repellat ipsam tenetur quod vitae nulla dicta
-              minima officia, rem tempore illo velit culpa ullam magni corporis.
-              Incidunt, temporibus molestiae. Vel voluptas voluptatem animi
-              aliquid ea, commodi voluptate illo quasi repellendus excepturi
-              iure, eius ducimus harum! Blanditiis alias odio reiciendis, sed
-              ducimus commodi nobis aut eveniet quia deserunt provident ratione.
+              Our platform is easy to use and secure, allowing you to upload high-quality images of your skin and receive a diagnosis within seconds. We use advanced technology to ensure that our diagnoses are accurate and reliable.
+              At DermCheck, we are committed to providing you with the best possible care and support. We believe that everyone deserves to feel confident and comfortable in their own skin, and we're here to help you achieve that goal.
+              Join the DermCheck community today and experience the future of dermatological care.
             </TextComponent>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import logo from "../assets/Images/logo.png";
 import profilePic from "../assets/Images/olawale.jpg";
 import LogoContainer from "./LogoContainer";
@@ -111,4 +111,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

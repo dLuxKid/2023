@@ -41,7 +41,7 @@ const Dashboard = () => {
               ) : (
                 <label
                   htmlFor="inputImg"
-                  className="text-center cursor-pointer"
+                  className="text-center cursor-pointer w-full h-full flex justify-center items-center"
                 >
                   Add Image
                   <input
