@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const uploadImg = (e) => {
     setImages(...e.target.files);
-    console.log(images);
+    console.log(e.target);
   };
 
   useEffect(() => {

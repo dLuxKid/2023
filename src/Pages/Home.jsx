@@ -7,10 +7,9 @@ import logo from "../assets/Images/logo.png";
 import LogoContainer from "../components/LogoContainer";
 import TitleComponent from "../components/TitleComponent";
 import TextComponent from "../components/TextComponent";
-import BtnComponent from '../components/BtnComponent'
+import BtnComponent from "../components/BtnComponent";
 
 const Home = () => {
-
   useEffect(() => {
     // FUNCTION FOR SETTING NAVBAR DISPLAY
     const nav = document.querySelector("nav");
@@ -35,9 +34,7 @@ const Home = () => {
           <LogoContainer logo={logo} />
           <div>
             <NavLink to="/login">
-              <BtnComponent>
-                Sign in
-              </BtnComponent>
+              <BtnComponent>Sign in</BtnComponent>
             </NavLink>
           </div>
         </div>
@@ -48,13 +45,14 @@ const Home = () => {
             Your go-to solution for all your skin-related concerns
           </TitleComponent>
           <TextComponent>
-            We are here to provide you with accurate and timely diagnoses through our easy-to-use online platform. Giving you the skin care you need from the comfort of your own home. Sign up today and experience the future of dermatology.
+            We are here to provide you with accurate and timely diagnoses
+            through our easy-to-use online platform. Giving you the skin care
+            you need from the comfort of your own home. Sign up today and
+            experience the future of dermatology.
           </TextComponent>
           <div>
             <NavLink to="/signup">
-              <BtnComponent>
-                Try Now
-              </BtnComponent>
+              <BtnComponent>Try Now</BtnComponent>
             </NavLink>
           </div>
         </div>
@@ -66,13 +64,27 @@ const Home = () => {
               ABOUT
             </TitleComponent>
             <TextComponent>
-              At DermCheck, we believe that everyone should have access to high-quality dermatological care, regardless of their location or schedule. That's why we've developed a state-of-the-art platform that connects patients to dermatological care online. Our goal is to make dermatological care accessible, affordable, and convenient for everyone.
-              Our website helps to diagnose a wide range of skin conditions, from acne and psoriasis to skin cancer and more. With DermCheck, you can skip the long wait times and high costs associated with traditional dermatology clinics and get the care you need when you need it.
+              At DermCheck, we believe that everyone should have access to
+              high-quality dermatological care, regardless of their location or
+              schedule. That's why we've developed a state-of-the-art platform
+              that connects patients to dermatological care online. Our goal is
+              to make dermatological care accessible, affordable, and convenient
+              for everyone. Our website helps to diagnose a wide range of skin
+              conditions, from acne and psoriasis to skin cancer and more. With
+              DermCheck, you can skip the long wait times and high costs
+              associated with traditional dermatology clinics and get the care
+              you need when you need it.
             </TextComponent>
             <TextComponent>
-              Our platform is easy to use and secure, allowing you to upload high-quality images of your skin and receive a diagnosis within seconds. We use advanced technology to ensure that our diagnoses are accurate and reliable.
-              At DermCheck, we are committed to providing you with the best possible care and support. We believe that everyone deserves to feel confident and comfortable in their own skin, and we're here to help you achieve that goal.
-              Join the DermCheck community today and experience the future of dermatological care.
+              Our platform is easy to use and secure, allowing you to upload
+              high-quality images of your skin and receive a diagnosis within
+              seconds. We use advanced technology to ensure that our diagnoses
+              are accurate and reliable. At DermCheck, we are committed to
+              providing you with the best possible care and support. We believe
+              that everyone deserves to feel confident and comfortable in their
+              own skin, and we're here to help you achieve that goal. Join the
+              DermCheck community today and experience the future of
+              dermatological care.
             </TextComponent>
           </div>
         </div>
@@ -82,3 +94,4 @@ const Home = () => {
 };
 
 export default Home;
+
