@@ -8,11 +8,11 @@ import { useStateContext } from "../contexts/contextProvider";
 
 
 const Layout = () => {
-  const { isLoggedIn } = useStateContext();
+  const { userData } = useStateContext();
 
   return (
     <div className="flex relative">
-      {isLoggedIn ? <Sidebar /> : null}
+      {userData.token ? <Sidebar /> : null}
       <div className="w-full">
         <Routers />
       </div>

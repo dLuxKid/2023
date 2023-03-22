@@ -3,17 +3,13 @@ import { useContext, createContext, useState } from "react";
 const stateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const [userData, setUserData] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  console.log(isLoggedIn)
+  const [userData, setUserData] = useState({});
+ 
   return (
     <stateContext.Provider
       value={{
         userData,
         setUserData,
-        isLoggedIn,
-        setIsLoggedIn
       }}
     >
       {children}

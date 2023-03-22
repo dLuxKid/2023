@@ -11,6 +11,9 @@ import TitleComponent from "../components/TitleComponent";
 import { useStateContext } from "../contexts/contextProvider";
 // STYLES
 import './styles.css'
+// API
+import { postSignup } from "../apis/Axios";
+
 
 // USER REDUCER STATE
 const initialState = {
@@ -32,7 +35,7 @@ const Signup = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // CONTEXT VARIABLE
-  const { setUserData, setIsLoggedIn } = useStateContext();
+  const { setUserData } = useStateContext();
 
   // INPUT CHNAGE FUNCTION
   const onChange = (e) => {
@@ -62,10 +65,11 @@ const Signup = () => {
   //   };
 
   // SUBMIT HANDLER
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setUserData(state);
-    setIsLoggedIn(true);
+    // const user = await postSignup("http://3.73.204.249/users/", state)
+    // console.log(user)
   };
 
   return (
@@ -87,7 +91,7 @@ const Signup = () => {
                 inputMode="text"
                 autoCapitalize="false"
                 placeholder="Username"
-                name="name"
+                name="username"
                 onChange={onChange}
                 className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400 placeholder:font-light placeholder:text-base  border-[1px] border-gray-400"
               />
@@ -121,11 +125,10 @@ const Signup = () => {
               <button
                 onClick={onSubmit}
                 type="submit"
-                className={`outline-0 border-0 text-center flex items-center justify-center rounded-md  text-white font-light text-xs xs:text-sm md:text-base lg:text-lg hover:shadow-lg ${
-                  true
-                    ? "bg-brown active:scale-90 active:duration-150"
-                    : "bg-gray-400"
-                }`}
+                className={`outline-0 border-0 text-center flex items-center justify-center rounded-md  text-white font-light text-xs xs:text-sm md:text-base lg:text-lg hover:shadow-lg ${true
+                  ? "bg-brown active:scale-90 active:duration-150"
+                  : "bg-gray-400"
+                  }`}
               >
                 <NavLink to="/dashboard" className={`py-1 px-6 md:px-8`}>Sign up</NavLink>
               </button>

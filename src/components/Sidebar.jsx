@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 import TextComponent from "./TextComponent";
 
 const Sidebar = () => {
-  const { userData, setIsLoggedIn } = useStateContext();
+  const { userData, setUserData } = useStateContext();
 
   const [activeMenu, setActiveMenu] = useState(false);
   const [screenSize, setScreenSize] = useState(null);
@@ -54,7 +54,7 @@ const Sidebar = () => {
       {screenSize <= 976 ? (
         <div
           className={` h-8 w-8 bg-white text-brown rounded-full flex justify-center items-center absolute cursor-pointer border-2 border-brown top-9 -right-3 duration-250 ${activeMenu ? "rotate-180" : ""
-            }`}  
+            }`}
           onClick={() => {
             setActiveMenu(!activeMenu);
           }}
@@ -90,7 +90,7 @@ const Sidebar = () => {
             ))}
             <div className="flex p-2 items-center">
               <TextComponent styles="text-white capitalize flex items-center">
-                {userData.name}
+                {userData.username}
                 <span
                   className="ml-4 pt-2 self-end cursor-pointer"
                   onClick={() => {
@@ -104,7 +104,6 @@ const Sidebar = () => {
             {showLogOutBtn ? (
               <TextComponent
                 styles="shadow-xl w-16 self-center p-2 -mt-4 bg-whiteT rounded-lg hover:scale-110 overflow-hidden text-white cursor-pointer"
-                onClick={() => setIsLoggedIn(false)}
               >
                 Logout
               </TextComponent>

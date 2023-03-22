@@ -3,16 +3,16 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useStateContext } from "../contexts/contextProvider";
 
 const PrivateRouter = () => {
-  const { isLoggedIn } = useStateContext();
+  const { userData } = useStateContext();
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/" />;
+  return userData.token ? <Outlet /> : <Navigate to="/" />;
 };
 
 
 export const PublicRouter = () => {
-  const { isLoggedIn } = useStateContext();
+  const { userData } = useStateContext();
 
-  return !isLoggedIn ? <Outlet /> : <Navigate to="/dashboard" />;
+  return !userData.token ? <Outlet /> : <Navigate to="/dashboard" />;
 };
 
 export default PrivateRouter

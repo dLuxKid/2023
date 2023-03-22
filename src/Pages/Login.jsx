@@ -1,5 +1,5 @@
 // REACT
-import React from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { NavLink } from "react-router-dom";
 // IMAGES
 import logo from "../assets/Images/logo.png";
@@ -9,9 +9,52 @@ import TextComponent from "../components/TextComponent";
 import TitleComponent from "../components/TitleComponent";
 // STYLES
 import './styles.css'
+// CONTEXT
+import { useStateContext } from "../contexts/contextProvider";
+// API 
+import { postLogin } from "../apis/Axios";
+
+// USER REDUCER STATE
+const initialState = {
+  username: "",
+  password: "",
+};
+
+// REDUCER FUNCTION
+const reducer = (state, action) => {
+  return { ...state, [action.input]: action.value };
+};
 
 const Login = () => {
   document.title = "Login";
+
+  // USEREDUCER DECLARATION
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // CONTEXT VARIABLE
+  const { setUserData } = useStateContext();
+
+  // INPUT CHNAGE FUNCTION
+  const onChange = (e) => {
+    const action = {
+      input: e.target.name,
+      value: e.target.value,
+    };
+    dispatch(action);
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = await postLogin("http://3.73.204.249/login/", {
+      'grant_type': 'password',
+      'username': state.username,
+      'password': state.password
+    })
+    if (user) setUserData({ ...state, token: user.data.access_token })
+  }
+
+
 
   return (
     <section className="h-screen w-full relative flex justify-center">
@@ -28,14 +71,16 @@ const Login = () => {
           <div className="w-full">
             <form action="" className="flex flex-col items-center">
               <input
+                onChange={onChange}
                 type="text"
                 inputMode="text"
                 autoCapitalize='false'
                 placeholder="Username"
-                name="name"
+                name="username"
                 className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400 border-[1px] border-gray-400"
               />
               <input
+                onChange={onChange}
                 type="text"
                 inputMode="password"
                 autoCapitalize='false'
@@ -44,10 +89,11 @@ const Login = () => {
                 className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400 border-[1px] border-gray-400"
               />
               <button
+                onClick={handleSubmit}
                 type="submit"
-                className={`outline-0 border-0 bg-brown text-center flex items-center justify-center py-1 px-6 md:px-8 rounded-md  text-white font-light text-xs xs:text-sm md:text-base lg:text-lg hover:shadow-lg active:scale-90 active:duration-150`}
+                className={`outline-0 border-0 text-center flex items-center justify-center rounded-md  text-white font-light text-xs xs:text-sm md:text-base lg:text-lg hover:shadow-lg bg-brown active:scale-90 active:duration-150`}
               >
-                Log in
+                <NavLink to="/dashboard" className={`py-1 px-6 md:px-8`}>Log in</NavLink>
               </button>
             </form>
           </div>
