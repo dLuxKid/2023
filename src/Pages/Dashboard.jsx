@@ -29,7 +29,7 @@ const Dashboard = () => {
         <div className="p-[10%] md:p-[5%] md:w-2/5 md:h-full">
           <div className="flex flex-col gap-8">
             <div>
-              <HeadingComponent>Good day, {userData.name}</HeadingComponent>
+              <HeadingComponent>Good day, {userData.name}!</HeadingComponent>
               <TextComponent>Upload an image to be scanned</TextComponent>
             </div>
             <div
