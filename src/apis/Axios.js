@@ -20,6 +20,7 @@ export const postLogin = async (url, data) => {
     return response;
   } catch (error) {
     console.log(error);
+    return error
   }
 };
 
@@ -34,5 +35,6 @@ export const postSignup = async (url, data) => {
     return response;
   } catch (error) {
     console.log(error);
+    return error
   }
 };

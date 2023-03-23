@@ -1,12 +1,13 @@
 // REACT
-import React, { useEffect, useState, useReducer } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useReducer, useCallback, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 // IMAGES
 import logo from "../assets/Images/logo.png";
 // COMPONENT
 import LogoContainer from "../components/LogoContainer";
 import TextComponent from "../components/TextComponent";
 import TitleComponent from "../components/TitleComponent";
+import BtnComponent from "../components/BtnComponent";
 // STYLES
 import './styles.css'
 // CONTEXT
@@ -14,8 +15,10 @@ import { useStateContext } from "../contexts/contextProvider";
 // API 
 import { postLogin } from "../apis/Axios";
 
+
 // USER REDUCER STATE
 const initialState = {
+  token: '',
   username: "",
   password: "",
 };
@@ -28,13 +31,19 @@ const reducer = (state, action) => {
 const Login = () => {
   document.title = "Login";
 
+  const navigate = useNavigate()
+  const [nameIsValid, setNameIsValid] = useState(true)
+  const [passwordIsValid, setPasswordIsValid] = useState(true)
+  const formValid = useRef(false)
+
+
   // USEREDUCER DECLARATION
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // CONTEXT VARIABLE
-  const { setUserData } = useStateContext();
+  const { login } = useStateContext();
 
-  // INPUT CHNAGE FUNCTION
+  // INPUT CHANGE FUNCTION
   const onChange = (e) => {
     const action = {
       input: e.target.name,
@@ -43,15 +52,55 @@ const Login = () => {
     dispatch(action);
   };
 
+  const validateName = () => {
+    const emailRegex = state.username.search(
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    );
+    console.log(emailRegex);
+    if (emailRegex < 0) {
+      setNameIsValid(false)
+    } else {
+      setNameIsValid(true)
+    }
+  }
+
+  const validatePassword = () => {
+    const requiredPassword = state.password.search(/\w\d/g);
+    if (state.password.trim().length < 8 && requiredPassword < 0) {
+      setPasswordIsValid(false)
+    } else {
+      setPasswordIsValid(true)
+    }
+  }
+
+  const validateState = useCallback(() => {
+    if (nameIsValid && passwordIsValid) {
+      formValid.current = true
+    } else {
+      formValid.current = false
+    }
+    console.log(formValid.current);
+  }, [nameIsValid, passwordIsValid])
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = await postLogin("http://3.73.204.249/login/", {
-      'grant_type': 'password',
-      'username': state.username,
-      'password': state.password
-    })
-    if (user) setUserData({ ...state, token: user.data.access_token })
+    validateState()
+    if (formValid.current) {
+      const user = await postLogin("http://3.73.204.249/login/", {
+        'grant_type': 'password',
+        'username': state.username,
+        'password': state.password
+      })
+      console.log(user);
+      if (user) {
+        login({ ...state, token: user.data.access_token })
+        navigate('/dashboard')
+      }
+    } else {
+      return
+    }
   }
 
 
@@ -71,13 +120,15 @@ const Login = () => {
           <div className="w-full">
             <form action="" className="flex flex-col items-center">
               <input
+                autoFocus
                 onChange={onChange}
                 type="text"
-                inputMode="text"
+                inputMode="email"
                 autoCapitalize='false'
-                placeholder="Username"
+                placeholder="Email"
                 name="username"
-                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400 border-[1px] border-gray-400"
+                onBlurCapture={validateName}
+                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${nameIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
               />
               <input
                 onChange={onChange}
@@ -86,15 +137,14 @@ const Login = () => {
                 autoCapitalize='false'
                 placeholder="Password"
                 name="password"
-                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400 border-[1px] border-gray-400"
+                onBlurCapture={validatePassword}
+                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${passwordIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
               />
-              <button
+              <BtnComponent
                 onClick={handleSubmit}
-                type="submit"
-                className={`outline-0 border-0 text-center flex items-center justify-center rounded-md  text-white font-light text-xs xs:text-sm md:text-base lg:text-lg hover:shadow-lg bg-brown active:scale-90 active:duration-150`}
               >
-                <NavLink to="/dashboard" className={`py-1 px-6 md:px-8`}>Log in</NavLink>
-              </button>
+                Log in
+              </BtnComponent>
             </form>
           </div>
           <div>
@@ -110,7 +160,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

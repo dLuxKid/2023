@@ -16,12 +16,12 @@ const Routers = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Route>
-
       <Route element={<PrivateRouter />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<Profile />} />
       </Route>
+      {/* <Route path='*' element={<NoMatch />} */}
     </Routes>
   );
 };

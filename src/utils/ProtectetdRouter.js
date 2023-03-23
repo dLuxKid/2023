@@ -8,11 +8,10 @@ const PrivateRouter = () => {
   return userData.token ? <Outlet /> : <Navigate to="/" />;
 };
 
-
 export const PublicRouter = () => {
   const { userData } = useStateContext();
 
   return !userData.token ? <Outlet /> : <Navigate to="/dashboard" />;
 };
 
-export default PrivateRouter
+export default PrivateRouter;

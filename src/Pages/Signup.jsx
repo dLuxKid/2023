@@ -1,12 +1,13 @@
 // REACT
-import React, { useReducer } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useReducer, useState, useRef, useCallback } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 // IMAGE
 import logo from "../assets/Images/logo.png";
 // COMPONENT
 import LogoContainer from "../components/LogoContainer";
 import TextComponent from "../components/TextComponent";
 import TitleComponent from "../components/TitleComponent";
+import BtnComponent from "../components/BtnComponent";
 // CONTEXT
 import { useStateContext } from "../contexts/contextProvider";
 // STYLES
@@ -31,11 +32,18 @@ const reducer = (state, action) => {
 const Signup = () => {
   document.title = "Signup";
 
+  const navigate = useNavigate()
+  const [nameIsValid, setNameIsValid] = useState(true)
+  const [emailIsValid, setEmailIsValid] = useState(true)
+  const [passwordIsValid, setPasswordIsValid] = useState(true)
+  const [confirmPasswordIsValid, setConfirmPasswordIsValid] = useState(true)
+  const formValid = useRef(false)
+
   // USEREDUCER DECLARATION
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // CONTEXT VARIABLE
-  const { setUserData } = useStateContext();
+  const { login } = useStateContext();
 
   // INPUT CHNAGE FUNCTION
   const onChange = (e) => {
@@ -46,30 +54,48 @@ const Signup = () => {
     dispatch(action);
   };
 
-  //   const validateState = (state) => {
-  //     const emailRegex = state.email.search(
-  //       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  //     );
-  //     const requiredPassword = state.password.search(/\w\d/g);
-  //     state.name.trim().length < 5 ? setNameIsValid(false) : setNameIsValid(true);
+  const validateName = () => {
+    state.username.trim().length < 5 ? setNameIsValid(false) : setNameIsValid(true);
+  }
 
-  //     emailRegex >= 0 ? setEmailIsValid(false) : setEmailIsValid(true);
+  const validateEmail = () => {
+    const emailRegex = state.email.search(
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    );
+    emailRegex < 0 ? setEmailIsValid(false) : setEmailIsValid(true);
+  }
 
-  //     requiredPassword < 0 && state.password.length < 8
-  //       ? setPasswordIsValid(false)
-  //       : setConfirmPasswordIsValid(true);
+  const validatePassword = () => {
+    const requiredPassword = state.password.search(/\w\d/g);
+    state.password.length < 8 && !requiredPassword ? setPasswordIsValid(false) : setPasswordIsValid(true)
+  }
 
-  //     state.password === state.confirmPassword
-  //       ? setConfirmPasswordIsValid(false)
-  //       : setConfirmPasswordIsValid(true);
-  //   };
+  const validateConfirmPassword = () => {
+    state.confirmPassword === state.password ? setConfirmPasswordIsValid(true) : setConfirmPasswordIsValid(false)
+  }
+
+  const validateState = useCallback(() => {
+    nameIsValid && passwordIsValid && emailIsValid && confirmPasswordIsValid ? formValid.current = true : formValid.current = false
+  }, [nameIsValid, passwordIsValid, emailIsValid, confirmPasswordIsValid])
 
   // SUBMIT HANDLER
   const onSubmit = async (e) => {
     e.preventDefault();
-    setUserData(state);
-    // const user = await postSignup("http://3.73.204.249/users/", state)
-    // console.log(user)
+    validateState()
+    if (formValid.current) {
+      const user = await postSignup("http://3.73.204.249/users/", {
+        'name': state.username,
+        'email': state.email,
+        'password': state.password
+      })
+      console.log(user);
+      if (user) {
+        login({ ...state, token: user.data.access_token })
+        navigate('/dashboard')
+      }
+    } else {
+      return
+    }
   };
 
   return (
@@ -93,7 +119,8 @@ const Signup = () => {
                 placeholder="Username"
                 name="username"
                 onChange={onChange}
-                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400 placeholder:font-light placeholder:text-base  border-[1px] border-gray-400"
+                onBlurCapture={validateName}
+                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${nameIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
               />
               <input
                 type="text"
@@ -102,7 +129,8 @@ const Signup = () => {
                 placeholder="Email"
                 name="email"
                 onChange={onChange}
-                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400 placeholder:font-light placeholder:text-base  border-[1px] border-gray-400"
+                onBlurCapture={validateEmail}
+                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${emailIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
               />
               <input
                 type="text"
@@ -111,7 +139,8 @@ const Signup = () => {
                 placeholder="Password"
                 name="password"
                 onChange={onChange}
-                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400  placeholder:font-light placeholder:text-base border-[1px] border-gray-400"
+                onBlurCapture={validatePassword}
+                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${passwordIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
               />
               <input
                 type="text"
@@ -120,18 +149,14 @@ const Signup = () => {
                 placeholder="Confirm Password"
                 name="confirmPassword"
                 onChange={onChange}
-                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 placeholder:text-gray-400  placeholder:font-light placeholder:text-base border-[1px] border-gray-400"
+                onBlurCapture={validateConfirmPassword}
+                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${confirmPasswordIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
               />
-              <button
+              <BtnComponent
                 onClick={onSubmit}
-                type="submit"
-                className={`outline-0 border-0 text-center flex items-center justify-center rounded-md  text-white font-light text-xs xs:text-sm md:text-base lg:text-lg hover:shadow-lg ${true
-                  ? "bg-brown active:scale-90 active:duration-150"
-                  : "bg-gray-400"
-                  }`}
               >
-                <NavLink to="/dashboard" className={`py-1 px-6 md:px-8`}>Sign up</NavLink>
-              </button>
+                Sign up
+              </BtnComponent>
             </form>
           </div>
           <div className="mb-2">

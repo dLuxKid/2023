@@ -49,9 +49,8 @@ const Dashboard = () => {
       }
     }
     getDiagnosis()
-    console.log(diagnosis)
     setErr(false)
-  }, [images]);
+  }, [images, userData.token]);
 
 
   return (

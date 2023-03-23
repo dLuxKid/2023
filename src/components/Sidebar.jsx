@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 import TextComponent from "./TextComponent";
 
 const Sidebar = () => {
-  const { userData, setUserData } = useStateContext();
+  const { userData } = useStateContext();
 
   const [activeMenu, setActiveMenu] = useState(false);
   const [screenSize, setScreenSize] = useState(null);
@@ -89,7 +89,7 @@ const Sidebar = () => {
               </NavLink>
             ))}
             <div className="flex p-2 items-center">
-              <TextComponent styles="text-white capitalize flex items-center">
+              <TextComponent styles="text-white flex items-center">
                 {userData.username}
                 <span
                   className="ml-4 pt-2 self-end cursor-pointer"
