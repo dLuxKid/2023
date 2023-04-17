@@ -1,5 +1,11 @@
 // REACT
-import React, { useReducer, useState, useRef, useCallback } from "react";
+import React, {
+  useReducer,
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 // IMAGE
 import logo from "../assets/Images/logo.png";
@@ -11,14 +17,13 @@ import BtnComponent from "../components/BtnComponent";
 // CONTEXT
 import { useStateContext } from "../contexts/contextProvider";
 // STYLES
-import './styles.css'
+import "./styles.css";
 // API
 import { postSignup } from "../apis/Axios";
 
-
 // USER REDUCER STATE
 const initialState = {
-  name: "",
+  username: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -32,12 +37,20 @@ const reducer = (state, action) => {
 const Signup = () => {
   document.title = "Signup";
 
-  const navigate = useNavigate()
-  const [nameIsValid, setNameIsValid] = useState(true)
-  const [emailIsValid, setEmailIsValid] = useState(true)
-  const [passwordIsValid, setPasswordIsValid] = useState(true)
-  const [confirmPasswordIsValid, setConfirmPasswordIsValid] = useState(true)
-  const formValid = useRef(false)
+  const navigate = useNavigate();
+  const [isValid, setIsValid] = useState({
+    username: true,
+    email: true,
+    password: true,
+    confirmPassword: true,
+  });
+  const [err, setErr] = useState({
+    name: null,
+    email: null,
+    password: null,
+    confirmPassword: null,
+  });
+  const [stateErr, setStateErr] = useState(null);
 
   // USEREDUCER DECLARATION
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -54,47 +67,107 @@ const Signup = () => {
     dispatch(action);
   };
 
-  const validateName = () => {
-    state.username.trim().length < 5 ? setNameIsValid(false) : setNameIsValid(true);
-  }
+  const validateName = useCallback(() => {
+    if (state.username.trim().length < 5) {
+      setIsValid((prev) => ({ ...prev, username: false }));
+    } else {
+      setIsValid((prev) => ({ ...prev, username: true }));
+      setErr((prev) => ({ ...prev, name: null }));
+    }
+  }, [state.username]);
 
-  const validateEmail = () => {
+  const validateEmail = useCallback(() => {
     const emailRegex = state.email.search(
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     );
-    emailRegex < 0 ? setEmailIsValid(false) : setEmailIsValid(true);
-  }
+    console.log(emailRegex);
+    if (emailRegex < 0) {
+      setIsValid((prev) => ({ ...prev, email: false }));
+    } else {
+      setIsValid((prev) => ({ ...prev, email: true }));
+      setErr((prev) => ({ ...prev, email: null }));
+    }
+  }, [state.email]);
 
-  const validatePassword = () => {
+  const validatePassword = useCallback(() => {
     const requiredPassword = state.password.search(/\w\d/g);
-    state.password.length < 8 && !requiredPassword ? setPasswordIsValid(false) : setPasswordIsValid(true)
-  }
+    if (state.password.trim().length < 8 && requiredPassword < 0) {
+      setIsValid((prev) => ({ ...prev, password: false }));
+    } else {
+      setIsValid((prev) => ({ ...prev, password: true }));
+      setErr((prev) => ({ ...prev, password: null }));
+    }
+  }, [state.password]);
 
-  const validateConfirmPassword = () => {
-    state.confirmPassword === state.password ? setConfirmPasswordIsValid(true) : setConfirmPasswordIsValid(false)
-  }
+  const validateConfirmPassword = useCallback(() => {
+    if (state.confirmPassword !== state.password) {
+      setIsValid((prev) => ({ ...prev, confirmPassword: false }));
+    } else {
+      setIsValid((prev) => ({ ...prev, confirmPassword: true }));
+      setErr((prev) => ({ ...prev, confirmPassword: null }));
+    }
+  }, [state.confirmPassword]);
 
-  const validateState = useCallback(() => {
-    nameIsValid && passwordIsValid && emailIsValid && confirmPasswordIsValid ? formValid.current = true : formValid.current = false
-  }, [nameIsValid, passwordIsValid, emailIsValid, confirmPasswordIsValid])
+  useEffect(() => {
+    validateName();
+    validateEmail();
+    validatePassword();
+    validateConfirmPassword();
+  }, [
+    state.name,
+    state.email,
+    state.password,
+    state.confirmPassword,
+    validateName,
+    validateEmail,
+    validatePassword,
+    validateConfirmPassword,
+  ]);
 
   // SUBMIT HANDLER
   const onSubmit = async (e) => {
     e.preventDefault();
-    validateState()
-    if (formValid.current) {
+    if (
+      isValid.username &&
+      isValid.email &&
+      isValid.password &&
+      isValid.confirmPassword
+    ) {
       const user = await postSignup("http://3.73.204.249/users/", {
-        'name': state.username,
-        'email': state.email,
-        'password': state.password
-      })
+        name: state.name,
+        email: state.email,
+        password: state.password,
+      });
       console.log(user);
+      setStateErr(user.message);
       if (user) {
-        login({ ...state, token: user.data.access_token })
-        navigate('/dashboard')
+        login({ ...state, token: user.data.access_token });
+        navigate("/dashboard");
       }
     } else {
-      return
+      !isValid.username
+        ? setErr((prev) => ({
+            ...prev,
+            name: "Name must be greater than 5 characters",
+          }))
+        : setErr((prev) => ({ ...prev, username: null }));
+      !isValid.email
+        ? setErr((prev) => ({ ...prev, email: "Email not valid" }))
+        : setErr((prev) => ({ ...prev, email: null }));
+      !isValid.password
+        ? setErr((prev) => ({
+            ...prev,
+            password:
+              "Password must include letters and numbers and must be greater than 8 characters",
+          }))
+        : setErr((prev) => ({ ...prev, password: null }));
+      !isValid.confirmPassword
+        ? setErr((prev) => ({
+            ...prev,
+            confirmPassword: "Password must be equal to password above",
+          }))
+        : setErr((prev) => ({ ...prev, confirmPassword: null }));
+      return;
     }
   };
 
@@ -109,9 +182,23 @@ const Signup = () => {
             <TextComponent styles={"mt-2"}>
               Please, enter your details to log in.
             </TextComponent>
+            {stateErr && (
+              <TitleComponent styles={"text-red-400"}>
+                {stateErr}
+              </TitleComponent>
+            )}
           </div>
           <div className="w-full">
-            <form action="" className="flex flex-col items-center">
+            <form action="" className="flex flex-col">
+              <label htmlFor="">
+                {err.name && (
+                  <TextComponent
+                    styles={"break-words text-red-400 text-left ml-1 mb-1"}
+                  >
+                    {err.name}
+                  </TextComponent>
+                )}
+              </label>
               <input
                 type="text"
                 inputMode="text"
@@ -120,8 +207,17 @@ const Signup = () => {
                 name="username"
                 onChange={onChange}
                 onBlurCapture={validateName}
-                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${nameIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
+                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] border-gray-400 placeholder:text-gray-400"
               />
+              <label htmlFor="">
+                {err.email && (
+                  <TextComponent
+                    styles={"break-words text-red-400 text-left ml-1 mb-1"}
+                  >
+                    {err.email}
+                  </TextComponent>
+                )}
+              </label>
               <input
                 type="text"
                 inputMode="email"
@@ -130,33 +226,49 @@ const Signup = () => {
                 name="email"
                 onChange={onChange}
                 onBlurCapture={validateEmail}
-                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${emailIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
+                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] border-gray-400 placeholder:text-gray-400"
               />
+              <label htmlFor="">
+                {err.password && (
+                  <TextComponent
+                    styles={"break-words text-red-400 text-left ml-1 mb-1"}
+                  >
+                    {err.password}
+                  </TextComponent>
+                )}
+              </label>
               <input
-                type="text"
+                type="password"
                 inputMode="password"
                 autoCapitalize="false"
                 placeholder="Password"
                 name="password"
                 onChange={onChange}
                 onBlurCapture={validatePassword}
-                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${passwordIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
+                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] border-gray-400 placeholder:text-gray-400"
               />
+              <label htmlFor="">
+                {err.confirmPassword && (
+                  <TextComponent
+                    styles={"break-words text-red-400 text-left ml-1 mb-1"}
+                  >
+                    {err.confirmPassword}
+                  </TextComponent>
+                )}
+              </label>
               <input
-                type="text"
+                type="password"
                 inputMode="password"
                 autoCapitalize="false"
                 placeholder="Confirm Password"
                 name="confirmPassword"
                 onChange={onChange}
                 onBlurCapture={validateConfirmPassword}
-                className={`h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] ${confirmPasswordIsValid ? 'border-gray-400 placeholder:text-gray-400' : 'border-red-400 placeholder:text-red-400'} `}
+                className="h-10 pl-3 mb-4 self-stretch rounded-md bg-white text-gray-400 border-[1px] border-gray-400 placeholder:text-gray-400"
               />
-              <BtnComponent
-                onClick={onSubmit}
-              >
-                Sign up
-              </BtnComponent>
+              <div className="self-center mt-2">
+                <BtnComponent onClick={onSubmit}>Sign up</BtnComponent>
+              </div>
             </form>
           </div>
           <div className="mb-2">
