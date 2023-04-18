@@ -133,6 +133,7 @@ const Signup = () => {
       isValid.password &&
       isValid.confirmPassword
     ) {
+      // connect to api
       const user = await postSignup("http://3.73.204.249/users/", {
         name: state.name,
         email: state.email,
